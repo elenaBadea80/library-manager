@@ -1,9 +1,11 @@
 package ro.itschool.library_manager.mapper.impl;
 
+import org.springframework.stereotype.Component;
 import ro.itschool.library_manager.dto.AuthorDto;
 import ro.itschool.library_manager.mapper.ObjectMapper;
 import ro.itschool.library_manager.persistence.entity.Author;
 
+@Component
 public class AuthorMapper implements ObjectMapper<AuthorDto, Author> {
 
     @Override

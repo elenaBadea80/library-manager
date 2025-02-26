@@ -22,6 +22,6 @@ public class Member {
     @ManyToMany(mappedBy = "members")
     private Set<Book> books;
 
-    @OneToMany(mappedBy = "member")
-    private Set<Returns> returns;
+//    @OneToMany(mappedBy = "member")
+//    private Set<Returns> returns;
 }

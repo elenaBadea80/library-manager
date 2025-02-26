@@ -48,9 +48,9 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "member_id")
     )
     private Set<Member> members;
-
-    @OneToMany(mappedBy = "book")
-    private List<Returns> returns;
+//
+//    @OneToMany(mappedBy = "book")
+//    private List<Returns> returns;
 
 }
 

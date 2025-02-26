@@ -11,8 +11,11 @@ import java.util.List;
 @Service
 public class CategoryService {
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+     private final CategoryRepository categoryRepository;
+
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     public List<Author> getAuthorsByCategoryName(String categoryName) {
         Category category = categoryRepository.findByCategoryName(categoryName);

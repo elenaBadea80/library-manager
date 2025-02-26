@@ -72,35 +72,34 @@ public class BookController {
                 HttpStatus.CREATED);
     }
 
-    public void deleteBookById(UUID id) {
-        // DELETE FROM product WHERE id = ?
-        bookRepository.deleteById(id);
+    @DeleteMapping("/{id}")
+    public void deleteBook(@PathVariable UUID id) {
+        bookService.deleteBookById(id);
     }
 
-    // TODO: Still in progress
-    public void updateBook(BookDto bookDto, BookDto existingBookDto) {
-        if (bookDto.getTitle() != null) {
-            existingBookDto.setTitle(bookDto.getTitle());
+    @PatchMapping("/{id}")
+    public ResponseEntity<Book> updateBook(@PathVariable UUID id,
+                                           @RequestBody BookDto bookDto) {
+        Book existingBookDto = bookService.getBookById(id);
+
+        if (existingBookDto == null) {
+            return ResponseEntity.notFound().build();
         }
 
-        if (bookDto.getCategory() != null) {
-            existingBookDto.setCategory(bookDto.getCategory());
-        }
+        bookService.updateBook(bookDto, existingBookDto);
 
-        if (bookDto.getYear() != 0) {
-            existingBookDto.setYear(bookDto.getYear());
-        }
-
-        if (bookDto.getAuthor() != null) {
-            existingBookDto.setAuthor(bookDto.getAuthor());
-        }
+        return ResponseEntity.ok(existingBookDto);
     }
 
-    // TODO: Still in progress
-    public void replaceProduct(BookDto bookDto, BookDto existingBookDto) {
-        existingBookDto.setTitle(bookDto.getTitle());
-        existingBookDto.setCategory(bookDto.getCategory());
-        existingBookDto.setYear(bookDto.getYear());
-        existingBookDto.setAuthor(bookDto.getAuthor());
+    @PutMapping("/{id}")
+    public ResponseEntity<Book> replaceBook(@PathVariable UUID id,
+                                            @RequestBody BookDto bookDto) {
+        Book existingBookDto = bookService.getBookById(id);
+
+        if (existingBookDto == null) {
+            return ResponseEntity.notFound().build();
+        }
+        bookService.replaceBook(bookDto, existingBookDto);
+        return ResponseEntity.ok(existingBookDto);
     }
 }

@@ -50,4 +50,36 @@ public class BookService {
                 .map(bookMapper::mapToDto)
                 .toList();
     }
+
+    public void deleteBookById(UUID id) {
+        // DELETE FROM product WHERE id = ?
+        bookRepository.deleteById(id);
+    }
+
+    // TODO: Still in progress
+    public void updateBook(BookDto bookDto, Book existingBookDto) {
+        if (bookDto.getTitle() != null) {
+            existingBookDto.setTitle(bookDto.getTitle());
+        }
+
+        if (bookDto.getCategory() != null) {
+            existingBookDto.setCategory(bookDto.getCategory());
+        }
+
+        if (bookDto.getYear() != 0) {
+            existingBookDto.setYear(bookDto.getYear());
+        }
+
+        if (bookDto.getAuthor() != null) {
+            existingBookDto.setAuthor(bookDto.getAuthor());
+        }
+    }
+
+    // TODO: Still in progress
+    public void replaceBook(BookDto bookDto, Book existingBookDto) {
+        existingBookDto.setTitle(bookDto.getTitle());
+        existingBookDto.setCategory(bookDto.getCategory());
+        existingBookDto.setYear(bookDto.getYear());
+        existingBookDto.setAuthor(bookDto.getAuthor());
+    }
 }

@@ -1,9 +1,11 @@
 package ro.itschool.library_manager.mapper.impl;
 
+import org.springframework.stereotype.Component;
 import ro.itschool.library_manager.dto.CategoryDto;
 import ro.itschool.library_manager.mapper.ObjectMapper;
 import ro.itschool.library_manager.persistence.entity.Category;
 
+@Component
 public class CategoryMapper implements ObjectMapper<CategoryDto, Category> {
 
     @Override
