@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.itschool.library_manager.dto.ReturnsDto;
 import ro.itschool.library_manager.mapper.impl.ReturnsMapper;
-import ro.itschool.library_manager.persistence.entity.Returns;
 import ro.itschool.library_manager.service.ReturnsService;
 
 import java.util.List;

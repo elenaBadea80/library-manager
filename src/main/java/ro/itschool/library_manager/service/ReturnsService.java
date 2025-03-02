@@ -1,10 +1,8 @@
 package ro.itschool.library_manager.service;
 
 import org.springframework.stereotype.Service;
-import ro.itschool.library_manager.dto.BookDto;
 import ro.itschool.library_manager.dto.ReturnsDto;
 import ro.itschool.library_manager.mapper.impl.ReturnsMapper;
-import ro.itschool.library_manager.persistence.entity.Book;
 import ro.itschool.library_manager.persistence.entity.Returns;
 import ro.itschool.library_manager.persistence.repository.ReturnsRepository;
 

@@ -2,6 +2,7 @@ package ro.itschool.library_manager.validator;
 
 import org.springframework.stereotype.Component;
 import ro.itschool.library_manager.dto.MemberDto;
+import ro.itschool.library_manager.exception.InvalidPayloadException;
 
 
 @Component

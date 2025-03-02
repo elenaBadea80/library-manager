@@ -2,12 +2,10 @@ package ro.itschool.library_manager.service;
 
 import org.springframework.stereotype.Service;
 import ro.itschool.library_manager.dto.AuthorDto;
-import ro.itschool.library_manager.dto.CategoryDto;
 import ro.itschool.library_manager.mapper.ObjectMapper;
 import ro.itschool.library_manager.persistence.entity.Author;
 import ro.itschool.library_manager.persistence.repository.AuthorRepository;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service

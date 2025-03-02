@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import ro.itschool.library_manager.dto.BookDto;
-import ro.itschool.library_manager.dto.MemberDto;
 
 import java.util.UUID;
 

@@ -1,12 +1,8 @@
 package ro.itschool.library_manager.service;
 
 import org.springframework.stereotype.Service;
-import ro.itschool.library_manager.dto.BookDto;
-import ro.itschool.library_manager.dto.CategoryDto;
 import ro.itschool.library_manager.dto.MemberDto;
 import ro.itschool.library_manager.mapper.impl.MemberMapper;
-import ro.itschool.library_manager.persistence.entity.Book;
-import ro.itschool.library_manager.persistence.entity.Category;
 import ro.itschool.library_manager.persistence.entity.Member;
 import ro.itschool.library_manager.persistence.repository.MemberRepository;
 
