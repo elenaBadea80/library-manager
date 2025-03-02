@@ -19,6 +19,7 @@ public class BookDto {
     private String title;
     private String categoryBook;
     private List<UUID> authors;
+    private List<UUID> members;
     private int year;
 }
 

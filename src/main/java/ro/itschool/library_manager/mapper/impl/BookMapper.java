@@ -5,7 +5,9 @@ import ro.itschool.library_manager.dto.BookDto;
 import ro.itschool.library_manager.mapper.ObjectMapper;
 import ro.itschool.library_manager.persistence.entity.Author;
 import ro.itschool.library_manager.persistence.entity.Book;
+import ro.itschool.library_manager.persistence.entity.Member;
 import ro.itschool.library_manager.persistence.repository.AuthorRepository;
+import ro.itschool.library_manager.persistence.repository.MemberRepository;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -16,10 +18,12 @@ import java.util.Set;
 public class BookMapper implements ObjectMapper<BookDto, Book> {
 
     private final AuthorRepository authorRepository;
+    private final MemberRepository memberRepository;
 
     public BookMapper(AuthorRepository authorRepository,
-                      AuthorMapper authorMapper) {
+                      MemberRepository memberRepository) {
         this.authorRepository = authorRepository;
+        this.memberRepository = memberRepository;
     }
 
 
@@ -27,7 +31,6 @@ public class BookMapper implements ObjectMapper<BookDto, Book> {
     public Book mapToEntity(BookDto bookDto) {
         Book book = new Book();
 
-        book.setTitle(bookDto.getTitle());
         Set<Author> authors = new HashSet<>();
         bookDto.getAuthors()
                 .forEach(a -> {
@@ -35,6 +38,14 @@ public class BookMapper implements ObjectMapper<BookDto, Book> {
                     authors.add(authorById.orElseThrow());
                 });
         book.setAuthors(authors);
+        Set<Member> members = new HashSet<>();
+        bookDto.getMembers()
+                .forEach(m -> {
+                    Optional<Member> memberById = memberRepository.findById(m);
+                    members.add(memberById.orElseThrow());
+                });
+        book.setMembers(members);
+        book.setTitle(bookDto.getTitle());
         book.setCategoryBook(bookDto.getCategoryBook());
         book.setYear(bookDto.getYear());
 
@@ -49,6 +60,9 @@ public class BookMapper implements ObjectMapper<BookDto, Book> {
                 book.getCategoryBook(),
                 book.getAuthors().stream()
                         .map(Author::getId)
+                        .toList(),
+                book.getMembers().stream()
+                        .map(Member::getId)
                         .toList(),
                 book.getYear()
         );

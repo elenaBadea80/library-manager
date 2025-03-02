@@ -3,22 +3,28 @@ package ro.itschool.library_manager.service;
 import org.springframework.stereotype.Service;
 import ro.itschool.library_manager.dto.MemberDto;
 import ro.itschool.library_manager.mapper.impl.MemberMapper;
+import ro.itschool.library_manager.persistence.entity.Book;
 import ro.itschool.library_manager.persistence.entity.Member;
+import ro.itschool.library_manager.persistence.repository.BookRepository;
 import ro.itschool.library_manager.persistence.repository.MemberRepository;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class MemberService {
 
     private final MemberRepository memberRepository;
     public final MemberMapper memberMapper;
+    private final BookRepository bookRepository;
 
     public MemberService(MemberRepository memberRepository,
-                         MemberMapper memberMapper) {
+                         MemberMapper memberMapper, BookRepository bookRepository) {
         this.memberRepository = memberRepository;
         this.memberMapper = memberMapper;
+        this.bookRepository = bookRepository;
     }
 
     public List<MemberDto> getAllMembers() {
@@ -62,8 +68,11 @@ public class MemberService {
                 .toList();
     }
 
-    public List<MemberDto> findMembersByBookTitle(String bookTitle) {
-        List<Member> members = memberRepository.findMembersByBookTitle(bookTitle);
+    public List<MemberDto> getMembersByBookTitle(String title) {
+        List<Book> books = bookRepository.findBooksByTitle(title);
+        Set<Member> members = books.stream()
+                .flatMap(book -> book.getMembers().stream())
+                .collect(Collectors.toSet());
         return members.stream()
                 .map(memberMapper::mapToDto)
                 .toList();
