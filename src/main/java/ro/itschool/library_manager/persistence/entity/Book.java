@@ -22,11 +22,6 @@ public class Book {
     private String title;
     private int year;
 
-//    @JsonBackReference
-//    @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "author_id", referencedColumnName = "id")
-//    private Author authorBook;
-
     @ManyToMany
     @JoinTable(
             name = "authors_book",

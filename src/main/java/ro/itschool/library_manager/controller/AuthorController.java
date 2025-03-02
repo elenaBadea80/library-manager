@@ -30,5 +30,9 @@ public class AuthorController {
         return authorService.getAuthorsByCategoryName(name);
     }
 
-
+    @GetMapping
+    public List<AuthorDto> getAuthors() {
+        List<AuthorDto> authors = authorService.getAuthors();
+        return authorService.getAuthors();
+    }
 }

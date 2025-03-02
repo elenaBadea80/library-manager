@@ -44,12 +44,6 @@ public class MemberController {
         }
     }
 
-//    @PostMapping
-//    public ResponseEntity<MemberDto> createMember(@RequestBody MemberDto memberDto) {
-//        memberService.createMember(memberDto);
-//        return ResponseEntity.status(201).body(memberDto);
-//    }
-
     @PostMapping
     public ResponseEntity<MemberDto> createMember(@RequestBody MemberDto memberDto) {
         try {

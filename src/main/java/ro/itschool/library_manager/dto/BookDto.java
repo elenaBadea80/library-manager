@@ -22,11 +22,6 @@ public class BookDto {
     private int year;
 }
 
-//public record BookDto(UUID id,
-//                      String title,
-//                      String author,
-//                      String category,
-//                      int year) {
 
 
 

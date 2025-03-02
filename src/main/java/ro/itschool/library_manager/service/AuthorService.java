@@ -3,6 +3,7 @@ package ro.itschool.library_manager.service;
 
 import org.springframework.stereotype.Service;
 import ro.itschool.library_manager.dto.AuthorDto;
+import ro.itschool.library_manager.dto.BookDto;
 import ro.itschool.library_manager.mapper.ObjectMapper;
 import ro.itschool.library_manager.persistence.entity.Author;
 import ro.itschool.library_manager.persistence.entity.Book;
@@ -47,5 +48,13 @@ public class AuthorService {
 
     public void deleteAuthor(UUID id) {
         authorRepository.deleteById(id);
+    }
+
+    public List<AuthorDto> getAuthors() {
+        List<Author> allAuthors = authorRepository.findAll();
+
+        return allAuthors.stream()
+                .map(authorMapper::mapToDto)
+                .toList();
     }
 }
