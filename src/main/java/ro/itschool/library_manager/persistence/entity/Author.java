@@ -1,6 +1,5 @@
 package ro.itschool.library_manager.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,9 +20,4 @@ public class Author {
 
     @ManyToMany(mappedBy = "authors")
     private Set<Book> books;
-
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
-    private Category category;
 }

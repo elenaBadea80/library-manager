@@ -48,6 +48,4 @@ public class AuthorService {
     public void deleteAuthor(UUID id) {
         authorRepository.deleteById(id);
     }
-
-
 }

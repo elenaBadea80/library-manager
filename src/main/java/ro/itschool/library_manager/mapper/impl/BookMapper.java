@@ -6,7 +6,6 @@ import ro.itschool.library_manager.mapper.ObjectMapper;
 import ro.itschool.library_manager.persistence.entity.Author;
 import ro.itschool.library_manager.persistence.entity.Book;
 import ro.itschool.library_manager.persistence.repository.AuthorRepository;
-import ro.itschool.library_manager.persistence.repository.CategoryRepository;
 
 import java.util.HashSet;
 import java.util.Optional;
