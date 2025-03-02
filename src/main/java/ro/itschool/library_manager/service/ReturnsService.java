@@ -10,6 +10,7 @@ import ro.itschool.library_manager.persistence.repository.ReturnsRepository;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -18,30 +19,30 @@ public class ReturnsService {
     private final ReturnsRepository returnsRepository;
     private final ReturnsMapper returnsMapper;
 
-    public ReturnsService(ReturnsRepository returnsRepository, ReturnsMapper returnsMapper) {
+    public ReturnsService(ReturnsRepository returnsRepository,
+                          ReturnsMapper returnsMapper) {
         this.returnsRepository = returnsRepository;
         this.returnsMapper = returnsMapper;
     }
 
-    public Returns saveReturn(ReturnsDto returnsDto) {
+    public List<ReturnsDto> getAllReturns() {
+        List<Returns> returnsList = returnsRepository.findAll();
+        return returnsList.stream().map(returnsMapper::mapToDto).collect(Collectors.toList());
+    }
+
+    public List<ReturnsDto> getReturnsByBookId(UUID bookId) {
+        List<Returns> returnsList = returnsRepository.findByBookId(bookId);
+        return returnsList.stream().map(returnsMapper::mapToDto).collect(Collectors.toList());
+    }
+
+    public List<ReturnsDto> getReturnsByMemberId(UUID memberId) {
+        List<Returns> returnsList = returnsRepository.findByMemberId(memberId);
+        return returnsList.stream().map(returnsMapper::mapToDto).collect(Collectors.toList());
+    }
+
+    public ReturnsDto createReturns(ReturnsDto returnsDto) {
         Returns returns = returnsMapper.mapToEntity(returnsDto);
-        return returnsRepository.save(returns);
+        Returns savedReturns = returnsRepository.save(returns);
+        return returnsMapper.mapToDto(savedReturns);
     }
-
-    public Returns updateReturn(UUID id, ReturnsDto returnsDto) {
-        Returns returns = returnsRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Returns not found"));
-        returns.setBook(returnsDto.getBook());
-        returns.setMember(returnsDto.getMember());
-        return returnsRepository.save(returns);
-    }
-
-    public List<Returns> getAllReturns() {
-         return returnsRepository.findAll();
-    }
-
-    public Returns getReturnById(UUID id) {
-        return  returnsRepository.findById(id).orElseThrow();
-    }
-
 }

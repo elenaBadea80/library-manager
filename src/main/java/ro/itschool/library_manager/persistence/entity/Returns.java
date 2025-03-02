@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import ro.itschool.library_manager.dto.BookDto;
+import ro.itschool.library_manager.dto.MemberDto;
 
 import java.util.UUID;
 
@@ -13,7 +15,7 @@ import java.util.UUID;
 public class Returns {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @JsonBackReference
@@ -25,5 +27,6 @@ public class Returns {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "id")
     private Member member;
+
 
 }

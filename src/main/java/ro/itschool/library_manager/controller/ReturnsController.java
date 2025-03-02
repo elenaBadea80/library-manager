@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/returns")
+@RequestMapping("/returns")
 public class ReturnsController {
 
     private final ReturnsService returnsService;
@@ -25,29 +25,28 @@ public class ReturnsController {
         this.returnsMapper = returnsMapper;
     }
 
-    @PostMapping
-    public ResponseEntity<Returns> createReturn(@RequestBody ReturnsDto returnsDto) {
-        Returns createdReturn = returnsService.saveReturn(returnsDto);
-        return new ResponseEntity<>(createdReturn, HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Returns> updateReturn(@PathVariable UUID id, @RequestBody ReturnsDto returnsDto) {
-        Returns updatedReturn = returnsService.updateReturn(id, returnsDto);
-        return new ResponseEntity<>(updatedReturn, HttpStatus.OK);
-    }
-
 
     @GetMapping
-    public ResponseEntity<List<Returns>> getAllReturns() {
-        List<Returns> returns = returnsService.getAllReturns();
-        return new ResponseEntity<>(returns, HttpStatus.OK);
+    public ResponseEntity<List<ReturnsDto>> getAllReturns() {
+        List<ReturnsDto> returnsList = returnsService.getAllReturns();
+        return new ResponseEntity<>(returnsList, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ReturnsDto> getBookReturnedById(@PathVariable UUID id) {
-        Returns returnById = returnsService.getReturnById(id);
-        return ResponseEntity.ok(returnsMapper.mapToDto(returnById));
+    @GetMapping("/book/{bookId}")
+    public ResponseEntity<List<ReturnsDto>> getReturnsByBookId(@PathVariable UUID bookId) {
+        List<ReturnsDto> returnsList = returnsService.getReturnsByBookId(bookId);
+        return new ResponseEntity<>(returnsList, HttpStatus.OK);
     }
 
+    @GetMapping("/member/{memberId}")
+    public ResponseEntity<List<ReturnsDto>> getReturnsByMemberId(@PathVariable UUID memberId) {
+        List<ReturnsDto> returnsList = returnsService.getReturnsByMemberId(memberId);
+        return new ResponseEntity<>(returnsList, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<ReturnsDto> createReturns(@RequestBody ReturnsDto returnsDto) {
+        ReturnsDto createdReturns = returnsService.createReturns(returnsDto);
+        return new ResponseEntity<>(createdReturns, HttpStatus.CREATED);
+    }
 }

@@ -8,22 +8,30 @@ import ro.itschool.library_manager.persistence.entity.Returns;
 @Component
 public class ReturnsMapper implements ObjectMapper<ReturnsDto, Returns> {
 
+    private final MemberMapper memberMapper;
+    private final BookMapper bookMapper;
+
+    public ReturnsMapper(MemberMapper memberMapper,
+                         BookMapper bookMapper) {
+        this.memberMapper = memberMapper;
+        this.bookMapper = bookMapper;
+    }
+
     @Override
     public ReturnsDto mapToDto(Returns returns) {
-        return new ReturnsDto(
-                returns.getId(),
-                returns.getBook(),
-                returns.getMember()
-        );
+        ReturnsDto returnsDto = new ReturnsDto();
+        returnsDto.setId(returns.getId());
+        returnsDto.setMemberReturns(memberMapper.mapToDto(returns.getMember()));
+        returnsDto.setBookReturns(bookMapper.mapToDto(returns.getBook()));
+        return returnsDto;
     }
 
     @Override
     public Returns mapToEntity(ReturnsDto returnsDto) {
         Returns returns = new Returns();
         returns.setId(returnsDto.getId());
-        returns.setBook(returnsDto.getBook());
-        returns.setMember(returnsDto.getMember());
+        returns.setMember(memberMapper.mapToEntity(returnsDto.getMemberReturns()));
+        returns.setBook(bookMapper.mapToEntity(returnsDto.getBookReturns()));
         return returns;
     }
-
 }

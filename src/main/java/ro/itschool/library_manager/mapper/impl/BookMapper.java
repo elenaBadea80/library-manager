@@ -14,7 +14,7 @@ public class BookMapper implements ObjectMapper<BookDto, Book> {
         Book book = new Book();
 
         book.setTitle(bookDto.getTitle());
-        book.setCategory(bookDto.getCategory());
+        book.setCategoryBook(bookDto.getCategoryBook());
         book.setAuthor(bookDto.getAuthor());
         book.setYear(bookDto.getYear());
 
@@ -26,7 +26,7 @@ public class BookMapper implements ObjectMapper<BookDto, Book> {
         return new BookDto(
                 book.getId(),
                 book.getTitle(),
-                book.getCategory(),
+                book.getCategoryBook(),
                 book.getAuthor(),
                 book.getYear()
         );

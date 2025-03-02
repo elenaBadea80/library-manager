@@ -1,6 +1,7 @@
 package ro.itschool.library_manager.persistence.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +16,7 @@ import java.util.UUID;
 public class Author {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String authorName;
@@ -23,11 +24,8 @@ public class Author {
     @ManyToMany(mappedBy = "authors")
     private Set<Book> books;
 
-    @ManyToMany
-    @JoinTable(
-            name = "author_category",
-            joinColumns = @JoinColumn(name = "author_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id")
-    )
-    private List<Category> categories;
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private Category category;
 }

@@ -38,38 +38,28 @@ public class BookController {
     }
 
     @GetMapping
-    public ResponseEntity<List<BookDto>> getBooks() {
-        List<Book> books = bookService.getBooks();
-        return ResponseEntity.ok(books.stream()
-                .map(bookMapper::mapToDto)
-                .toList());
+    public List<BookDto> getBooks() {
+        List<BookDto> books = bookService.getBooks();
+        return bookService.getBooks();
     }
 
-    @GetMapping("/title")
-    public List<BookDto> getBooksByOneTitle(@RequestParam String title) {
-        return bookService.getBooksByOneTitle(title);
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<BookDto> getBookById(@PathVariable UUID id) {
-        Book bookById = bookService.getBookById(id);
+        BookDto bookDtoById = bookService.getBookById(id);
 
-        return ResponseEntity.ok(bookMapper.mapToDto(bookById));
-    }
-
-    @GetMapping("/title/category")
-    public List<BookDto> getBooksByTitleAndCategory(@RequestParam String title,
-                                                    @RequestParam String category) {
-        return bookService.getBooksByTitleAndCategory(title, category);
+        if (bookDtoById == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(bookDtoById);
     }
 
     @PostMapping
-    public ResponseEntity<BookDto> createBook(@RequestBody BookDto bookDto) {
-        Book mappedBook = bookMapper.mapToEntity(bookDto);
-        Book createBook = bookService.createBook(mappedBook);
-        return new ResponseEntity<>(bookMapper
-                .mapToDto(createBook),
-                HttpStatus.CREATED);
+    public ResponseEntity<String> createBook(@RequestBody BookDto bookDto) {
+        bookService.createBook(bookDto);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Book created successfully");
     }
 
     @DeleteMapping("/{id}")
@@ -78,9 +68,9 @@ public class BookController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Book> updateBook(@PathVariable UUID id,
+    public ResponseEntity<BookDto> updateBook(@PathVariable UUID id,
                                            @RequestBody BookDto bookDto) {
-        Book existingBookDto = bookService.getBookById(id);
+        BookDto existingBookDto = bookService.getBookById(id);
 
         if (existingBookDto == null) {
             return ResponseEntity.notFound().build();
@@ -92,9 +82,9 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Book> replaceBook(@PathVariable UUID id,
+    public ResponseEntity<BookDto> replaceBook(@PathVariable UUID id,
                                             @RequestBody BookDto bookDto) {
-        Book existingBookDto = bookService.getBookById(id);
+        BookDto existingBookDto = bookService.getBookById(id);
 
         if (existingBookDto == null) {
             return ResponseEntity.notFound().build();

@@ -13,12 +13,9 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
 
     List<Book> getBooksByTitle(String title);
 
-    @Query("SELECT b FROM Book b WHERE b.title = ?1 ")
-    List<Book> findBooksByOneTitleJpql(String title);
+    @Query("SELECT b FROM Book b WHERE b.title = ?1")
+    List<Book> findBooksByTitleJpql(String title);
 
-    @Query("SELECT b FROM Book b WHERE b.title = ?1 and b.category = ?2")
-    List<Book> findBooksByTitleAndCategoryJpql(String title, String category);
-
-    @Query(value = "SELECT * FROM book WHERE book_title = ?1 and category = ?2", nativeQuery = true)
-    List<Book> findBooksByTitleAndCategoryNative(String title, String category);
+    @Query(value = "SELECT * FROM book WHERE book_title = ?1", nativeQuery = true)
+    List<Book> findBooksByTitleNative(String title);
 }

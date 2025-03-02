@@ -1,6 +1,7 @@
 package ro.itschool.library_manager.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,18 +16,18 @@ import java.util.UUID;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String title;
-    private String category;
+    private String categoryBook;
     private String author;
     private int year;
 
-    @JsonBackReference
-    @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "author_id", referencedColumnName = "id")
-    private Author authorBook;
+//    @JsonBackReference
+//    @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "author_id", referencedColumnName = "id")
+//    private Author authorBook;
 
     @ManyToMany
     @JoinTable(
@@ -39,7 +40,7 @@ public class Book {
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
-    private Category categoryBook;
+    private Category category;
 
     @ManyToMany
     @JoinTable(
@@ -48,9 +49,10 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "member_id")
     )
     private Set<Member> members;
-//
-//    @OneToMany(mappedBy = "book")
-//    private List<Returns> returns;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
+    private List<Returns> returns;
 
 }
 

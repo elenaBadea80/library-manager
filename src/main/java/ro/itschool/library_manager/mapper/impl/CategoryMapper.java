@@ -19,6 +19,7 @@ public class CategoryMapper implements ObjectMapper<CategoryDto, Category> {
     @Override
     public Category mapToEntity(CategoryDto categoryDto) {
         Category category = new Category();
+        category.setId(categoryDto.getId());
         category.setCategoryName(categoryDto.getCategoryName());
         return category;
     }

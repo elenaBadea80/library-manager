@@ -1,9 +1,11 @@
 package ro.itschool.library_manager.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -13,7 +15,7 @@ import java.util.UUID;
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String memberName;
@@ -22,6 +24,7 @@ public class Member {
     @ManyToMany(mappedBy = "members")
     private Set<Book> books;
 
-//    @OneToMany(mappedBy = "member")
-//    private Set<Returns> returns;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<Returns> returns;
 }

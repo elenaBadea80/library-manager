@@ -17,8 +17,7 @@ public class ReturnsDto {
 
     private UUID id;
 
-    private Book book;
-    private Member member;
+    private BookDto bookReturns;
+    private MemberDto memberReturns;
 
-
- }
+}

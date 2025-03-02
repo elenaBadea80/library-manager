@@ -21,30 +21,27 @@ public class BookService {
         this.bookMapper = bookMapper;
     }
 
-    public Book getBookById(UUID id) {
-        return  bookRepository.findById(id).orElseThrow();
+    public BookDto getBookById(UUID id) {
+        Book referenceById = bookRepository.getReferenceById(id);
+
+        return bookMapper.mapToDto(referenceById);
     }
 
-    public List<Book> getBooks(){
-        return bookRepository.findAll();
-    }
+    public List<BookDto> getBooks(){
+        List<Book> allBooks = bookRepository.findAll();
 
-    public Book createBook(Book book) {
-        return bookRepository.save(book);
-    }
-
-    public List<BookDto> getBooksByTitleAndCategory(String title, String category) {
-        List<Book> books = bookRepository.findBooksByTitleAndCategoryJpql(title, category);
-
-
-        return books.stream()
+        return allBooks.stream()
                 .map(bookMapper::mapToDto)
                 .toList();
     }
 
-    public List<BookDto> getBooksByOneTitle(String title) {
-        List<Book> books = bookRepository.findBooksByOneTitleJpql(title);
+    public void createBook(BookDto bookDto) {
+        Book book = bookMapper.mapToEntity(bookDto);
+        bookRepository.save(book);
+    }
 
+    public List<BookDto> getBooksByTitle(String title) {
+        List<Book> books = bookRepository.findBooksByTitleJpql(title);
 
         return books.stream()
                 .map(bookMapper::mapToDto)
@@ -57,13 +54,13 @@ public class BookService {
     }
 
     // TODO: Still in progress
-    public void updateBook(BookDto bookDto, Book existingBookDto) {
+    public void updateBook(BookDto bookDto, BookDto existingBookDto) {
         if (bookDto.getTitle() != null) {
             existingBookDto.setTitle(bookDto.getTitle());
         }
 
-        if (bookDto.getCategory() != null) {
-            existingBookDto.setCategory(bookDto.getCategory());
+        if (bookDto.getCategoryBook() != null) {
+            existingBookDto.setCategoryBook(bookDto.getCategoryBook());
         }
 
         if (bookDto.getYear() != 0) {
@@ -76,9 +73,9 @@ public class BookService {
     }
 
     // TODO: Still in progress
-    public void replaceBook(BookDto bookDto, Book existingBookDto) {
+    public void replaceBook(BookDto bookDto, BookDto existingBookDto) {
         existingBookDto.setTitle(bookDto.getTitle());
-        existingBookDto.setCategory(bookDto.getCategory());
+        existingBookDto.setCategoryBook(bookDto.getCategoryBook());
         existingBookDto.setYear(bookDto.getYear());
         existingBookDto.setAuthor(bookDto.getAuthor());
     }

@@ -20,10 +20,8 @@ public class MemberMapper implements ObjectMapper<MemberDto, Member> {
     @Override
     public Member mapToEntity(MemberDto memberDto) {
         Member member = new Member();
-
         member.setMemberName(memberDto.getMemberName());
         member.setEmail(memberDto.getEmail());
-
         return member;
     }
 }
