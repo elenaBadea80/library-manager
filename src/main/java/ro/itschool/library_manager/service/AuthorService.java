@@ -4,20 +4,27 @@ import org.springframework.stereotype.Service;
 import ro.itschool.library_manager.dto.AuthorDto;
 import ro.itschool.library_manager.mapper.ObjectMapper;
 import ro.itschool.library_manager.persistence.entity.Author;
+import ro.itschool.library_manager.persistence.entity.Book;
 import ro.itschool.library_manager.persistence.repository.AuthorRepository;
+import ro.itschool.library_manager.persistence.repository.BookRepository;
 
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorService {
 
     private final AuthorRepository authorRepository;
     private final ObjectMapper<AuthorDto, Author> authorMapper;
+    private final BookRepository bookRepository;
 
     public AuthorService (AuthorRepository authorRepository,
-                          ObjectMapper<AuthorDto, Author> authorMapper) {
+                          ObjectMapper<AuthorDto, Author> authorMapper, BookRepository bookRepository) {
         this.authorRepository = authorRepository;
         this.authorMapper = authorMapper;
+        this.bookRepository = bookRepository;
     }
 
     public void createAuthor(AuthorDto authorDto) {
@@ -26,13 +33,23 @@ public class AuthorService {
         authorRepository.save(author);
     }
 
-//    public List<AuthorDto> getAuthorsByCategoryName(CategoryDto categoryDtoName) {
-//        List<Author> authors = authorRepository.findAuthorsByCategoryName(categoryDtoName.getCategoryName());
+//    public List<AuthorDto> getAuthorsByCategory_CategoryName(String categoryCategoryName) {
+//        List<Author> authors = authorRepository.findAuthorsByCategory_CategoryName(categoryCategoryName);
 //
 //        return authors.stream()
 //                .map(authorMapper::mapToDto)
 //                .toList();
 //    }
+
+    public List<AuthorDto> getAuthorsByCategoryName(String categoryName) {
+        List<Book> books = bookRepository.findBooksByCategoryName(categoryName);
+        Set<Author> authors = books.stream()
+                .flatMap(book -> book.getAuthors().stream())
+                .collect(Collectors.toSet());
+        return authors.stream()
+                .map(authorMapper::mapToDto)
+                .toList();
+    }
 
     public void deleteAuthor(UUID id) {
         authorRepository.deleteById(id);

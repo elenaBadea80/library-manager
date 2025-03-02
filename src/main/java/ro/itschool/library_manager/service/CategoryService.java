@@ -23,12 +23,12 @@ public class CategoryService {
     }
 
     public List<CategoryDto> getAllCategories() {
-           List<Category> allCategories = categoryRepository.findAll();
+        List<Category> allCategories = categoryRepository.findAll();
 
-            return allCategories.stream()
-                    .map(categoryMapper::mapToDto)
-                    .toList();
-        }
+        return allCategories.stream()
+                .map(categoryMapper::mapToDto)
+                .toList();
+    }
 
     public CategoryDto getCategoryById(UUID id) {
         Category referenceById = categoryRepository.getReferenceById(id);

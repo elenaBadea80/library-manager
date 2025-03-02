@@ -28,11 +28,21 @@ public class BookController {
         this.bookRepository = bookRepository;
     }
 
-    @GetMapping("/{title}")
-    public List<BookDto> getBooksByTitle(String title) {
+    @GetMapping("/title/{title}")
+    public List<BookDto> getBooksByTitle(@PathVariable String title) {
         List<Book> booksByTitle = bookRepository.getBooksByTitle(title);
 
         return booksByTitle.stream()
+                .map(bookMapper::mapToDto)
+                .toList();
+    }
+
+    @GetMapping("/author/{author}")
+    public List<BookDto> getBooksByAuthor(@PathVariable
+                                              String author) {
+        List<Book> booksByAuthor = bookRepository.getBooksByAuthor(author);
+
+        return booksByAuthor.stream()
                 .map(bookMapper::mapToDto)
                 .toList();
     }
@@ -69,7 +79,7 @@ public class BookController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<BookDto> updateBook(@PathVariable UUID id,
-                                           @RequestBody BookDto bookDto) {
+                                              @RequestBody BookDto bookDto) {
         BookDto existingBookDto = bookService.getBookById(id);
 
         if (existingBookDto == null) {
@@ -83,7 +93,7 @@ public class BookController {
 
     @PutMapping("/{id}")
     public ResponseEntity<BookDto> replaceBook(@PathVariable UUID id,
-                                            @RequestBody BookDto bookDto) {
+                                               @RequestBody BookDto bookDto) {
         BookDto existingBookDto = bookService.getBookById(id);
 
         if (existingBookDto == null) {

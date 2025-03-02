@@ -4,7 +4,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.itschool.library_manager.dto.AuthorDto;
+import ro.itschool.library_manager.dto.CategoryDto;
 import ro.itschool.library_manager.service.AuthorService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/authors")
@@ -25,8 +28,13 @@ public class AuthorController {
     }
 
 //    @GetMapping("/category")
-//    public List<AuthorDto> getAuthorsByCategoryName(@RequestParam CategoryDto categoryDtoName) {
-//        return authorService.getAuthorsByCategoryName(categoryDtoName);
+//    public List<AuthorDto> getAuthorsByCategory_CategoryName(@RequestParam String categoryCategoryName) {
+//        return authorService.getAuthorsByCategory_CategoryName(categoryCategoryName);
 //    }
+
+    @GetMapping("/category/{categoryName}")
+    public List<AuthorDto> getAuthorsByCategory(@PathVariable String categoryName) {
+        return authorService.getAuthorsByCategoryName(categoryName);
+    }
 
 }

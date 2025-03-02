@@ -1,3 +1,4 @@
+
 package ro.itschool.library_manager.persistence.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;

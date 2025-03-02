@@ -1,3 +1,4 @@
+
 package ro.itschool.library_manager.controller;
 
 import org.springframework.http.HttpStatus;
@@ -38,13 +39,13 @@ public class CategoryController {
         categoryService.deleteCategory(id);
     }
 
-    @GetMapping("/authors/{categoryName}")
-    public List<Author> findAuthorsByCategoryName(@PathVariable String categoryName) {
-        return categoryService.findAuthorsByCategoryName(categoryName);
-    }
-
-    @GetMapping("/books/{categoryName}")
-    public List<Book> findBooksByCategoryName(@PathVariable String categoryName) {
-        return categoryService.findBooksByCategoryName(categoryName);
-    }
+//    @GetMapping("/authors/{categoryName}")
+//    public List<Author> findAuthorsByCategoryName(@PathVariable String categoryName) {
+//        return categoryService.findAuthorsByCategoryName(categoryName);
+//    }
+//
+//    @GetMapping("/books/{categoryName}")
+//    public List<Book> findBooksByCategoryName(@PathVariable String categoryName) {
+//        return categoryService.findBooksByCategoryName(categoryName);
+//    }
 }

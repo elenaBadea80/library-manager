@@ -1,3 +1,4 @@
+
 package ro.itschool.library_manager.service;
 
 import org.springframework.stereotype.Service;
@@ -42,6 +43,14 @@ public class BookService {
 
     public List<BookDto> getBooksByTitle(String title) {
         List<Book> books = bookRepository.findBooksByTitleJpql(title);
+
+        return books.stream()
+                .map(bookMapper::mapToDto)
+                .toList();
+    }
+
+    public List<BookDto> getBooksByAuthor(String author) {
+        List<Book> books = bookRepository.findBooksByAuthorJpql(author);
 
         return books.stream()
                 .map(bookMapper::mapToDto)
