@@ -5,8 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.itschool.library_manager.dto.CategoryDto;
-import ro.itschool.library_manager.persistence.entity.Author;
-import ro.itschool.library_manager.persistence.entity.Book;
 import ro.itschool.library_manager.service.CategoryService;
 
 import java.util.List;

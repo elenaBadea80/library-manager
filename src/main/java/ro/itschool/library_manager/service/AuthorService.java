@@ -1,3 +1,4 @@
+
 package ro.itschool.library_manager.service;
 
 import org.springframework.stereotype.Service;
@@ -32,14 +33,6 @@ public class AuthorService {
 
         authorRepository.save(author);
     }
-
-//    public List<AuthorDto> getAuthorsByCategory_CategoryName(String categoryCategoryName) {
-//        List<Author> authors = authorRepository.findAuthorsByCategory_CategoryName(categoryCategoryName);
-//
-//        return authors.stream()
-//                .map(authorMapper::mapToDto)
-//                .toList();
-//    }
 
     public List<AuthorDto> getAuthorsByCategoryName(String categoryName) {
         List<Book> books = bookRepository.findBooksByCategoryName(categoryName);

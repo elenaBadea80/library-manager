@@ -1,4 +1,5 @@
 
+
 package ro.itschool.library_manager.persistence.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,11 +16,9 @@ import java.util.UUID;
 @Repository
 public interface CategoryRepository  extends JpaRepository<Category, UUID> {
 
-    // Găsește toți autorii asociați cu o anumită categorie după numele categoriei
     @Query("SELECT a FROM Author a WHERE a.category.categoryName = :categoryName")
     List<Author> findAuthorsByCategoryName(@Param("categoryName") String categoryName);
 
-    // Găsește toate cărțile asociate cu o anumită categorie după numele categoriei
-    @Query("SELECT b FROM Book b WHERE b.category.categoryName = :categoryName")
+      @Query("SELECT b FROM Book b WHERE b.category.categoryName = :categoryName")
     List<Book> findBooksByCategoryName(@Param("categoryName") String categoryName);
 }

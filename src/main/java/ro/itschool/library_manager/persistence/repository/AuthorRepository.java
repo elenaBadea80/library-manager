@@ -10,9 +10,6 @@ import java.util.UUID;
 
 public interface AuthorRepository extends JpaRepository<Author, UUID> {
 
-
- //   List<Author> findAuthorsByCategory_CategoryName(String categoryCategoryName);
-
     @Query("SELECT a FROM Author a WHERE a.category.categoryName = ?1")
     List<Author> findAuthorsByCategoryName(String categoryName);
 

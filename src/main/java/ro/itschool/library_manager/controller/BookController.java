@@ -1,3 +1,4 @@
+
 package ro.itschool.library_manager.controller;
 
 import org.springframework.http.HttpStatus;
@@ -39,7 +40,7 @@ public class BookController {
 
     @GetMapping("/author/{author}")
     public List<BookDto> getBooksByAuthor(@PathVariable
-                                              String author) {
+                                          String author) {
         List<Book> booksByAuthor = bookRepository.getBooksByAuthor(author);
 
         return booksByAuthor.stream()
