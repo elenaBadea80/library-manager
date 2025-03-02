@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -17,7 +18,7 @@ public class BookDto {
 
     private String title;
     private String categoryBook;
-    private String author;
+    private List<UUID> authors;
     private int year;
 }
 

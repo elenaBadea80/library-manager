@@ -4,14 +4,17 @@ package ro.itschool.library_manager.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ro.itschool.library_manager.dto.AuthorDto;
 import ro.itschool.library_manager.dto.BookDto;
 import ro.itschool.library_manager.mapper.ObjectMapper;
+import ro.itschool.library_manager.persistence.entity.Author;
 import ro.itschool.library_manager.persistence.entity.Book;
 import ro.itschool.library_manager.persistence.repository.BookRepository;
 import ro.itschool.library_manager.service.BookService;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/books")
@@ -40,12 +43,9 @@ public class BookController {
 
     @GetMapping("/author/{author}")
     public List<BookDto> getBooksByAuthor(@PathVariable
-                                          String author) {
-        List<Book> booksByAuthor = bookRepository.getBooksByAuthor(author);
+                                          UUID author) {
 
-        return booksByAuthor.stream()
-                .map(bookMapper::mapToDto)
-                .toList();
+        return bookService.getBooksByAuthor(author);
     }
 
     @GetMapping

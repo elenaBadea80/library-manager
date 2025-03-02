@@ -28,7 +28,7 @@ public class BookService {
         return bookMapper.mapToDto(referenceById);
     }
 
-    public List<BookDto> getBooks(){
+    public List<BookDto> getBooks() {
         List<Book> allBooks = bookRepository.findAll();
 
         return allBooks.stream()
@@ -49,7 +49,7 @@ public class BookService {
                 .toList();
     }
 
-    public List<BookDto> getBooksByAuthor(String author) {
+    public List<BookDto> getBooksByAuthor(UUID author) {
         List<Book> books = bookRepository.findBooksByAuthorJpql(author);
 
         return books.stream()
@@ -76,8 +76,8 @@ public class BookService {
             existingBookDto.setYear(bookDto.getYear());
         }
 
-        if (bookDto.getAuthor() != null) {
-            existingBookDto.setAuthor(bookDto.getAuthor());
+        if (bookDto.getAuthors() != null) {
+            existingBookDto.setAuthors(bookDto.getAuthors());
         }
     }
 
@@ -86,6 +86,7 @@ public class BookService {
         existingBookDto.setTitle(bookDto.getTitle());
         existingBookDto.setCategoryBook(bookDto.getCategoryBook());
         existingBookDto.setYear(bookDto.getYear());
-        existingBookDto.setAuthor(bookDto.getAuthor());
+        existingBookDto.setAuthors(bookDto.getAuthors());
     }
+
 }

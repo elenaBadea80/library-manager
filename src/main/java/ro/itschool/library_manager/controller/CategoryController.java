@@ -8,6 +8,7 @@ import ro.itschool.library_manager.dto.CategoryDto;
 import ro.itschool.library_manager.service.CategoryService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -46,4 +47,5 @@ public class CategoryController {
 //    public List<Book> findBooksByCategoryName(@PathVariable String categoryName) {
 //        return categoryService.findBooksByCategoryName(categoryName);
 //    }
+
 }

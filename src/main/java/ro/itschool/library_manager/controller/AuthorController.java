@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.itschool.library_manager.dto.AuthorDto;
 import ro.itschool.library_manager.service.AuthorService;
-
 import java.util.List;
 
 @RestController
@@ -26,9 +25,10 @@ public class AuthorController {
                 .body("Book created successfully");
     }
 
-    @GetMapping("/category/{categoryName}")
-    public List<AuthorDto> getAuthorsByCategory(@PathVariable String categoryName) {
-        return authorService.getAuthorsByCategoryName(categoryName);
+    @GetMapping("/category")
+    public List<AuthorDto> getAuthorsByCategory(@RequestParam String name) {
+        return authorService.getAuthorsByCategoryName(name);
     }
+
 
 }

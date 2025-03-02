@@ -18,10 +18,8 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-
-    private String title;
     private String categoryBook;
-    private String author;
+    private String title;
     private int year;
 
 //    @JsonBackReference

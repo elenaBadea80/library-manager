@@ -9,7 +9,9 @@ import ro.itschool.library_manager.persistence.entity.Category;
 import ro.itschool.library_manager.persistence.repository.CategoryRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -52,4 +54,5 @@ public class CategoryService {
     public List<Book> findBooksByCategoryName(String categoryName) {
         return categoryRepository.findBooksByCategoryName(categoryName);
     }
+
 }

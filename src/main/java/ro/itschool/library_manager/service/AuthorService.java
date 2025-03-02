@@ -10,6 +10,7 @@ import ro.itschool.library_manager.persistence.repository.AuthorRepository;
 import ro.itschool.library_manager.persistence.repository.BookRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -21,8 +22,8 @@ public class AuthorService {
     private final ObjectMapper<AuthorDto, Author> authorMapper;
     private final BookRepository bookRepository;
 
-    public AuthorService (AuthorRepository authorRepository,
-                          ObjectMapper<AuthorDto, Author> authorMapper, BookRepository bookRepository) {
+    public AuthorService(AuthorRepository authorRepository,
+                         ObjectMapper<AuthorDto, Author> authorMapper, BookRepository bookRepository) {
         this.authorRepository = authorRepository;
         this.authorMapper = authorMapper;
         this.bookRepository = bookRepository;
@@ -47,4 +48,6 @@ public class AuthorService {
     public void deleteAuthor(UUID id) {
         authorRepository.deleteById(id);
     }
+
+
 }
