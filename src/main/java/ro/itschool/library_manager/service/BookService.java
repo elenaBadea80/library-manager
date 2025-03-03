@@ -79,14 +79,30 @@ public class BookService {
         if (bookDto.getAuthors() != null) {
             existingBookDto.setAuthors(bookDto.getAuthors());
         }
+
+        if (bookDto.getMembers() != null) {
+            existingBookDto.setMembers(bookDto.getMembers());
+        }
+        Book bookEntity = bookMapper.mapToEntity(existingBookDto);
+
+        // Salvează entitatea actualizată
+        bookRepository.save(bookEntity);
     }
 
     // TODO: Still in progress
-    public void replaceBook(BookDto bookDto, BookDto existingBookDto) {
+    public BookDto replaceBook(BookDto bookDto, BookDto existingBookDto) {
         existingBookDto.setTitle(bookDto.getTitle());
         existingBookDto.setCategoryBook(bookDto.getCategoryBook());
         existingBookDto.setYear(bookDto.getYear());
         existingBookDto.setAuthors(bookDto.getAuthors());
+        existingBookDto.setMembers(bookDto.getMembers());
+
+        Book updatedBook = bookMapper.mapToEntity(existingBookDto);
+        bookRepository.save(updatedBook);
+
+        // Returnăm DTO-ul actualizat
+        bookMapper.mapToDto(updatedBook);
+        return bookDto;
     }
 
 }

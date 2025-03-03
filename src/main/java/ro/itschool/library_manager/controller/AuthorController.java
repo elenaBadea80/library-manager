@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ro.itschool.library_manager.dto.AuthorDto;
 import ro.itschool.library_manager.service.AuthorService;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/authors")
@@ -22,7 +23,7 @@ public class AuthorController {
         authorService.createAuthor(authorDto);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Book created successfully");
+                .body("Author created successfully");
     }
 
     @GetMapping("/category")
@@ -34,5 +35,11 @@ public class AuthorController {
     public List<AuthorDto> getAuthors() {
         List<AuthorDto> authors = authorService.getAuthors();
         return authorService.getAuthors();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAuthor(@PathVariable UUID id) {
+        authorService.deleteAuthor(id);
+        return ResponseEntity.noContent().build();
     }
 }

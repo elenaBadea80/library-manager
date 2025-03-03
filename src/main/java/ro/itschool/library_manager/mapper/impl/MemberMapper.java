@@ -20,6 +20,7 @@ public class MemberMapper implements ObjectMapper<MemberDto, Member> {
     @Override
     public Member mapToEntity(MemberDto memberDto) {
         Member member = new Member();
+    //    member.setId(memberDto.getId());  dacca nu se vrea sa se genereze un nou id la updateMember
         member.setMemberName(memberDto.getMemberName());
         member.setEmail(memberDto.getEmail());
         return member;

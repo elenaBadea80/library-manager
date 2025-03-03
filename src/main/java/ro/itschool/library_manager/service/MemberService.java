@@ -55,6 +55,11 @@ public class MemberService {
         if (memberDto.getEmail() != null) {
             existingMemberDto.setEmail(memberDto.getEmail());
         }
+
+        Member memberEntity = memberMapper.mapToEntity(existingMemberDto);
+
+        // Salvează entitatea actualizată
+        memberRepository.save(memberEntity);
     }
 
     public void deleteMember(UUID id) {

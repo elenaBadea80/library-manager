@@ -70,9 +70,17 @@ public class BookController {
                 .body("Book created successfully");
     }
 
+//    @DeleteMapping("/{id}")
+//    public void deleteBook(@PathVariable UUID id) {
+//        bookService.deleteBookById(id);
+//    }
+
     @DeleteMapping("/{id}")
-    public void deleteBook(@PathVariable UUID id) {
+    public ResponseEntity<String> deleteBook(@PathVariable UUID id) {
         bookService.deleteBookById(id);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("Book deleted successfully");
     }
 
     @PatchMapping("/{id}")
@@ -97,7 +105,9 @@ public class BookController {
         if (existingBookDto == null) {
             return ResponseEntity.notFound().build();
         }
-        bookService.replaceBook(bookDto, existingBookDto);
-        return ResponseEntity.ok(existingBookDto);
+//        bookService.replaceBook(bookDto, existingBookDto);
+//        return ResponseEntity.ok(existingBookDto);
+        BookDto updatedBookDto = bookService.replaceBook(bookDto, existingBookDto);
+        return ResponseEntity.ok(updatedBookDto);
     }
 }
