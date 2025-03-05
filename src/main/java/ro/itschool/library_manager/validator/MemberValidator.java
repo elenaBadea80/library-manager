@@ -2,19 +2,23 @@ package ro.itschool.library_manager.validator;
 
 import org.springframework.stereotype.Component;
 import ro.itschool.library_manager.dto.MemberDto;
-import ro.itschool.library_manager.exception.InvalidPayloadException;
+import ro.itschool.library_manager.exception.InvalidMemberException;
 
 
 @Component
 public class MemberValidator {
 
-    public void validateClient(MemberDto member) {
+    public void memberValidate(MemberDto member) {
         if (member == null) {
-            throw new InvalidPayloadException("Member cannot be null");
+            throw new InvalidMemberException("Member cannot be null");
         }
 
         if (member.getMemberName() == null || member.getMemberName().isEmpty()) {
-            throw new InvalidPayloadException("Member name cannot be null or empty");
+            throw new InvalidMemberException("Member name cannot be null or empty");
+        }
+
+        if (member.getEmail() == null || member.getEmail().isEmpty()) {
+            throw new InvalidMemberException ("Member mail cannot be empty");
         }
     }
 }

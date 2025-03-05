@@ -1,11 +1,9 @@
 package ro.itschool.library_manager.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -24,7 +22,4 @@ public class Member {
     @ManyToMany(mappedBy = "members")
     private Set<Book> books;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-    private List<Returns> returns;
 }

@@ -38,8 +38,9 @@ public class AuthorController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAuthor(@PathVariable UUID id) {
+    public ResponseEntity<String> deleteAuthor(@PathVariable UUID id) {
         authorService.deleteAuthor(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("Author deleted successfully");
     }
 }

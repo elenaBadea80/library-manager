@@ -27,7 +27,7 @@ public class BookController {
         this.bookService = bookService;
         this.bookMapper = bookMapper;
         this.bookRepository = bookRepository;
-    }
+         }
 
     @GetMapping("/title/{title}")
     public List<BookDto> getBooksByTitle(@PathVariable String title) {
@@ -107,7 +107,9 @@ public class BookController {
         }
 //        bookService.replaceBook(bookDto, existingBookDto);
 //        return ResponseEntity.ok(existingBookDto);
+
         BookDto updatedBookDto = bookService.replaceBook(bookDto, existingBookDto);
         return ResponseEntity.ok(updatedBookDto);
     }
+
 }

@@ -62,7 +62,6 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
-    // TODO: Still in progress
     public void updateBook(BookDto bookDto, BookDto existingBookDto) {
         if (bookDto.getTitle() != null) {
             existingBookDto.setTitle(bookDto.getTitle());

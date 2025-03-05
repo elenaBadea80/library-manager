@@ -7,6 +7,7 @@ import ro.itschool.library_manager.persistence.entity.Book;
 import ro.itschool.library_manager.persistence.entity.Member;
 import ro.itschool.library_manager.persistence.repository.BookRepository;
 import ro.itschool.library_manager.persistence.repository.MemberRepository;
+import ro.itschool.library_manager.validator.MemberValidator;
 
 import java.util.List;
 import java.util.Set;
@@ -19,12 +20,14 @@ public class MemberService {
     private final MemberRepository memberRepository;
     public final MemberMapper memberMapper;
     private final BookRepository bookRepository;
+    private final MemberValidator memberValidator;
 
     public MemberService(MemberRepository memberRepository,
-                         MemberMapper memberMapper, BookRepository bookRepository) {
+                         MemberMapper memberMapper, BookRepository bookRepository, MemberValidator memberValidator) {
         this.memberRepository = memberRepository;
         this.memberMapper = memberMapper;
         this.bookRepository = bookRepository;
+        this.memberValidator = memberValidator;
     }
 
     public List<MemberDto> getAllMembers() {
@@ -42,8 +45,8 @@ public class MemberService {
     }
 
     public void createMember(MemberDto memberDto) {
+        memberValidator.memberValidate(memberDto);
         Member member = memberMapper.mapToEntity(memberDto);
-
         memberRepository.save(member);
     }
 
