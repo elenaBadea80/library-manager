@@ -43,21 +43,21 @@ public class BookServiceTest {
                 2023
         );
 
-        Book mappedBook = new Book();
-        mappedBook.setId(UUID.randomUUID());
-        mappedBook.setTitle("Title");
-        mappedBook.setCategoryBook("Category");
-        mappedBook.setYear(2023);
+        Book book = new Book();
+        book.setId(UUID.randomUUID());
+        book.setTitle("Title");
+        book.setCategoryBook("Category");
+        book.setYear(2023);
 
-        when(bookMapper.mapToEntity(bookDto)).thenReturn(mappedBook);
-        when(bookRepository.save(mappedBook)).thenReturn(mappedBook);
+        when(bookMapper.mapToEntity(bookDto)).thenReturn(book);
+        when(bookRepository.save(book)).thenReturn(book);
 
         // when
         bookService.createBook(bookDto);
 
         // then
         verify(bookMapper).mapToEntity(bookDto);
-        verify(bookRepository).save(mappedBook);
+        verify(bookRepository).save(book);
 
     }
 

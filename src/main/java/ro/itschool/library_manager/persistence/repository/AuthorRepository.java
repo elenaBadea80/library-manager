@@ -13,5 +13,5 @@ import java.util.UUID;
 public interface AuthorRepository extends JpaRepository<Author, UUID> {
 
     @Query("SELECT a FROM Author a JOIN a.books b WHERE b.categoryBook = ?1")
-    List<Author> findAuthorsByCategoryName(String categoryName);
+    List<Author> findAuthorsByCategoryBook(String categoryName);
 }

@@ -14,6 +14,7 @@ import java.util.UUID;
 public interface BookRepository extends JpaRepository<Book, UUID> {
 
     List<Book> getBooksByTitle(String title);
+    List<Book> getBooksByCategoryBook(String categoryBook);
 
     @Query("SELECT b FROM Book b JOIN b.authors a WHERE a.id = :authorId")
     List<Book> findBooksByAuthorJpql(UUID authorId);
@@ -24,8 +25,8 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
     @Query(value = "SELECT * FROM book WHERE book_title = ?1", nativeQuery = true)
     List<Book> findBooksByTitleNative(String title);
 
-    @Query("SELECT b FROM Book b WHERE b.categoryBook = :categoryName")
-    List<Book> findBooksByCategoryName(@Param("categoryName") String categoryName);
+    @Query("SELECT b FROM Book b WHERE b.categoryBook = :categoryBook")
+    List<Book> findBooksByCategoryBook(@Param("categoryBook") String categoryBook);
 
     @Query("SELECT b FROM Book b WHERE b.title = :title")
     List<Book> findBooksByTitle(@Param("title") String title);

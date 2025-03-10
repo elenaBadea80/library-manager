@@ -49,6 +49,14 @@ public class BookService {
                 .toList();
     }
 
+    public List<BookDto> getBooksByCategoryBook(String categoryBook) {
+        List<Book> books = bookRepository.findBooksByCategoryBook(categoryBook);
+
+        return books.stream()
+                .map(bookMapper::mapToDto)
+                .toList();
+    }
+
     public List<BookDto> getBooksByAuthor(UUID author) {
         List<Book> books = bookRepository.findBooksByAuthorJpql(author);
 

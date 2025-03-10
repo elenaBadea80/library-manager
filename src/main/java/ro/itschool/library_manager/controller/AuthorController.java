@@ -27,8 +27,8 @@ public class AuthorController {
     }
 
     @GetMapping("/category")
-    public List<AuthorDto> getAuthorsByCategory(@RequestParam String name) {
-        return authorService.getAuthorsByCategoryName(name);
+    public List<AuthorDto> getAuthorsByCategoryBook(@RequestParam String name) {
+        return authorService.getAuthorsByCategoryBook(name);
     }
 
     @GetMapping

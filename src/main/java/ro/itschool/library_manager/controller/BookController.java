@@ -38,6 +38,15 @@ public class BookController {
                 .toList();
     }
 
+    @GetMapping("/categoryBook/{categoryBook}")
+    public List<BookDto> getBooksByCategoryBook(@PathVariable String categoryBook) {
+        List<Book> booksByCategoryBook = bookRepository.getBooksByCategoryBook(categoryBook);
+
+        return booksByCategoryBook.stream()
+                .map(bookMapper::mapToDto)
+                .toList();
+    }
+
     @GetMapping("/author/{author}")
     public List<BookDto> getBooksByAuthor(@PathVariable
                                           UUID author) {

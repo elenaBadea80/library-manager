@@ -34,8 +34,8 @@ public class AuthorService {
         authorRepository.save(author);
     }
 
-    public List<AuthorDto> getAuthorsByCategoryName(String categoryName) {
-        List<Book> books = bookRepository.findBooksByCategoryName(categoryName);
+    public List<AuthorDto> getAuthorsByCategoryBook(String categoryName) {
+        List<Book> books = bookRepository.findBooksByCategoryBook(categoryName);
         Set<Author> authors = books.stream()
                 .flatMap(book -> book.getAuthors().stream())
                 .collect(Collectors.toSet());
